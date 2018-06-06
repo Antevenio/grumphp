@@ -9,6 +9,10 @@ use GrumPHP\Util\Filesystem;
 
 class DevelopmentIntegrator
 {
+    protected static function getProjectRootDirectory()
+    {
+        return __DIR__ . "/../..";
+    }
     /**
      * This method makes sure that GrumPHP registers itself during development.
      */
@@ -17,7 +21,7 @@ class DevelopmentIntegrator
         $filesystem = new Filesystem();
 
         $composerBinDir = $event->getComposer()->getConfig()->get('bin-dir');
-        $executable = getcwd() . '/bin/grumphp';
+        $executable = static::getProjectRootDirectory() . '/bin/grumphp';
         $composerExecutable =  $composerBinDir . '/grumphp';
         $filesystem->copy(
             self::noramlizePath($executable),
